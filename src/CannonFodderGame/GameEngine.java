@@ -7,8 +7,9 @@
  * 
  */
 package CannonFodderGame;
-import CannonFodderGame.Logic.CannonLogic;
-import CannonFodderGame.Objects.Cannon;
+import CannonFodderGame.Logic.*;
+import CannonFodderGame.Objects.*;
+import CannonFodderGame.HelperFunctions.*;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -20,9 +21,12 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 public class GameEngine implements ApplicationListener {
 		CannonLogic cannon;
+		PlayerController controller;
+		
 		FloatBuffer vertexBuffer;
 		@Override
 		public void render() {
+			controller.aimLogic();
 			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 				 	 
 			Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -33,15 +37,31 @@ public class GameEngine implements ApplicationListener {
 			
 			Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, vertexBuffer);
 			
-			
 			Gdx.gl11.glPushMatrix();
-			Gdx.gl11.glTranslatef(0, 1, 0);
-			Gdx.gl11.glColor4f(0, 1, 1, 0);
+			Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);
+			
+			//Sets the color for the cannon.
+			Gdx.gl11.glColor4f(
+					cannon.getCannonColor().getRed(),
+					cannon.getCannonColor().getGreen(),
+					cannon.getCannonColor().getBlue(),
+					cannon.getCannonColor().getAlpha()
+					);
 			Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
 			Gdx.gl11.glPopMatrix();
 					 
 		}
-		
+		//This function is called on startup.
+		@Override
+		public void create() {
+			cannon = new CannonLogic();
+			controller = new PlayerController();
+			Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+			Gdx.gl11.glClearColor(0.4f, 0.6f, 1.0f, 1.0f);
+			vertexBuffer = BufferUtils.newFloatBuffer(8);
+			vertexBuffer.put(new float[] {-50,-50, -50,50, 50,-50, 50,50});
+			vertexBuffer.rewind();
+		}
 		@Override
 		public void resize(int arg0, int arg1) {
 		// TODO Auto-generated method stub
@@ -52,15 +72,6 @@ public class GameEngine implements ApplicationListener {
 		public void resume() {
 		// TODO Auto-generated method stub
 		 
-		}
-		@Override
-		public void create() {
-			cannon = new CannonLogic();
-			Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-			Gdx.gl11.glClearColor(0.4f, 0.6f, 1.0f, 1.0f);
-			vertexBuffer = BufferUtils.newFloatBuffer(8);
-			vertexBuffer.put(new float[] {-50,-50, -50,50, 50,-50, 50,50});
-			vertexBuffer.rewind();
 		}
 		
 		@Override

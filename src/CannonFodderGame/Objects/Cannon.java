@@ -1,11 +1,11 @@
 package CannonFodderGame.Objects;
 
 import CannonFodderGame.Logic.CannonLogic;
-
+import CannonFodderGame.HelperFunctions.*;
 public class Cannon{
+	private Color cannonColor = new Color(0,0,0,1);
 	
-	
-	private int X1 = 350;
+	private int X1 = 400;
 	private int X2 = 450;
 	
 	private int Y1 = 0;	
@@ -50,6 +50,12 @@ public class Cannon{
 
 	public void setY2(int y2) {
 		Y2 = y2;
+	}
+	public Color getCannonColor() {
+		return cannonColor;
+	}
+	public void setCannonColor(Color cannonColor) {
+		this.cannonColor = cannonColor;
 	}
 
 	
