@@ -1,6 +1,9 @@
 package CannonFodderGame.Objects;
 
 import java.util.Random;
+
+import com.badlogic.gdx.Gdx;
+
 import CannonFodderGame.HelperFunctions.Color;
 
 public class Shape {
@@ -35,7 +38,7 @@ public class Shape {
 
 
 	public void setY1(float y1) {
-		this.y1 = y1;
+		this.y1 = Gdx.graphics.getHeight() -  y1;
 	}
 
 
@@ -55,7 +58,7 @@ public class Shape {
 
 
 	public void setY2(float y2) {
-		this.y2 = y2;
+		this.y2 = Gdx.graphics.getHeight() - y2;
 	}
 
 
