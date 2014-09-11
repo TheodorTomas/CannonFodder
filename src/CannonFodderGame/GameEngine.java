@@ -13,7 +13,9 @@ import CannonFodderGame.HelperFunctions.*;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL11;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.BufferUtils;
 
@@ -31,6 +33,8 @@ public class GameEngine implements ApplicationListener {
 		public void render() {
 			controller.aimLogic();
 			lines.lineLogic();
+			ShapeRenderer sr = new ShapeRenderer();
+			
 			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 				 	 
 			Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -55,20 +59,11 @@ public class GameEngine implements ApplicationListener {
 			Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
 			Gdx.gl11.glPopMatrix();
 			
-			//This draws all the lines
-			Gdx.gl11.glPushMatrix();
-			Gdx.gl11.glLineWidth(lines.getLineWidth());
-			//Sets the color for the lines.
-			Gdx.gl11.glColor4f(
-					lines.getShapeColor().getRed(),
-					lines.getShapeColor().getGreen(),
-					lines.getShapeColor().getBlue(),
-					lines.getShapeColor().getAlpha()
-					);
-			Gdx.gl11.glTranslatef(lines.getX2(), lines.getY1(), 0);
-			Gdx.gl11.glDrawArrays(Gdx.gl11.GL_LINE_STRIP, 0, 4);
+			sr.setColor(lines.getShapeColor().getRed(), lines.getShapeColor().getGreen(), lines.getShapeColor().getBlue(), lines.getShapeColor().getAlpha());
+			sr.begin(ShapeType.Line);
+				sr.line(lines.getX1(), lines.getY1(), lines.getX1(), lines.getY1());
+			sr.end();
 			
-			Gdx.gl11.glPopMatrix();
 					 
 		}
 		//This function is called on startup.
