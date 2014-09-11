@@ -22,11 +22,15 @@ import java.util.ArrayList;
 public class GameEngine implements ApplicationListener {
 		CannonLogic cannon;
 		PlayerController controller;
+		LineLogic lines;
+		
 		
 		FloatBuffer vertexBuffer;
+		@SuppressWarnings("static-access")
 		@Override
 		public void render() {
 			controller.aimLogic();
+			lines.lineLogic();
 			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 				 	 
 			Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -37,9 +41,10 @@ public class GameEngine implements ApplicationListener {
 			
 			Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, vertexBuffer);
 			
-			Gdx.gl11.glPushMatrix();
-			Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);
 			
+			//This draws the cannon
+			Gdx.gl11.glPushMatrix();
+			Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);		
 			//Sets the color for the cannon.
 			Gdx.gl11.glColor4f(
 					cannon.getCannonColor().getRed(),
@@ -49,12 +54,28 @@ public class GameEngine implements ApplicationListener {
 					);
 			Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
 			Gdx.gl11.glPopMatrix();
+			
+			//This draws all the lines
+			Gdx.gl11.glPushMatrix();
+			Gdx.gl11.glLineWidth(lines.getLineWidth());
+			//Sets the color for the lines.
+			Gdx.gl11.glColor4f(
+					lines.getShapeColor().getRed(),
+					lines.getShapeColor().getGreen(),
+					lines.getShapeColor().getBlue(),
+					lines.getShapeColor().getAlpha()
+					);
+			Gdx.gl11.glTranslatef(lines.getX2(), lines.getY1(), 0);
+			Gdx.gl11.glDrawArrays(Gdx.gl11.GL_LINE_STRIP, 0, 4);
+			
+			Gdx.gl11.glPopMatrix();
 					 
 		}
 		//This function is called on startup.
 		@Override
 		public void create() {
 			cannon = new CannonLogic();
+			lines = new LineLogic();
 			controller = new PlayerController();
 			Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 			Gdx.gl11.glClearColor(0.4f, 0.6f, 1.0f, 1.0f);
