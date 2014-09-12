@@ -1,6 +1,13 @@
+/*Theodór Tómas Theodórsson, Bjarnþór 
+ * Reykjavík University 
+ * T-511-TGRA, Computer Graphics
+ * 
+ * 05.09.2014
+ * Assignment 2
+ * 
+ */
 package CannonFodderGame.Objects;
 
-import CannonFodderGame.Logic.CannonLogic;
 import CannonFodderGame.HelperFunctions.*;
 public class Cannon{
 	private Color cannonColor = new Color(0,0,0,1);

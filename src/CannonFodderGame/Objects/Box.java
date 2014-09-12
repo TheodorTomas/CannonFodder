@@ -1,11 +1,13 @@
+/*Theodór Tómas Theodórsson, Bjarnþór 
+ * Reykjavík University 
+ * T-511-TGRA, Computer Graphics
+ * 
+ * 05.09.2014
+ * Assignment 2
+ * 
+ */
 package CannonFodderGame.Objects;
-
-import java.util.ArrayList;
-
-import CannonFodderGame.Logic.LineLogic;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL11;
 
 public class Box extends Shape{
 	private Line botLine;
@@ -14,6 +16,7 @@ public class Box extends Shape{
 	private Line lefLine;
 	
 	public Box(){
+		this.setShapeType(org.lwjgl.opengl.GL11.GL_QUADS);
 		
 		System.out.println("hello");
 		this.botLine = new Line();
@@ -41,13 +44,8 @@ public class Box extends Shape{
 		this.lefLine.setY2(Gdx.input.getY());
 		
 	}
-
-	
 	public Line getBotLine(){return this.botLine;}
 	public Line getLefLine(){return this.lefLine;}
 	public Line getTopLine(){return this.topLine;}
-	public Line getRigLine(){return this.rigLine;}
-
-
-	
+	public Line getRigLine(){return this.rigLine;}	
 }

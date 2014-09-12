@@ -9,13 +9,9 @@
 package CannonFodderGame;
 import CannonFodderGame.Logic.*;
 import CannonFodderGame.Objects.*;
-import CannonFodderGame.HelperFunctions.*;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -35,14 +31,11 @@ public class GameEngine implements ApplicationListener {
 			lines.lineLogic(this.shapeList);
 			boxes.boxLogic(this.shapeList);
 			
-			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-				 	 
+			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);			 	 
 			Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
 			Gdx.gl11.glLoadIdentity();
 			Gdx.glu.gluOrtho2D(Gdx.gl10, 0, 800, 0, 600);
-			 
 			Gdx.gl11.glColor4f(0.6f, 0.0f, 0.0f, 1.0f);
-			
 			Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, vertexBuffer);
 			
 			
@@ -57,6 +50,7 @@ public class GameEngine implements ApplicationListener {
 			
 			
 			//This draws each line created by mouse clicks
+			//TODO: fill out the boxes using org.lwjgl.opengl.GL11.GL_QUADS
 			for(Shape s : shapeList){
 				org.lwjgl.opengl.GL11.glColor4f(s.getShapeColor().getRed(), s.getShapeColor().getGreen(),
 						s.getShapeColor().getBlue(), s.getShapeColor().getAlpha());
@@ -73,7 +67,6 @@ public class GameEngine implements ApplicationListener {
 			lines = new LineLogic();
 			boxes = new BoxLogic();
 			controller = new PlayerController();
-			
 			shapeList = new ArrayList<Shape>();
 			
 			Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);

@@ -1,19 +1,20 @@
+/*Theodór Tómas Theodórsson, Bjarnþór 
+ * Reykjavík University 
+ * T-511-TGRA, Computer Graphics
+ * 
+ * 05.09.2014
+ * Assignment 2
+ * 
+ */
 package CannonFodderGame.Logic;
-
 import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL11;
-
 import CannonFodderGame.Objects.Box;
-import CannonFodderGame.Objects.Line;
 import CannonFodderGame.Objects.Shape;
-
 
 public class BoxLogic extends Box{
 	private Boolean firstClick;
-	
 	
 	public BoxLogic(){
 		this.firstClick = true;
@@ -105,9 +106,6 @@ public class BoxLogic extends Box{
 	public Boolean getFirstClick() {
 		return firstClick;
 	}
-
 	public void setFirstClick(Boolean firstClick) {
 		this.firstClick = firstClick;
-	}
-	
-}
+	}	}
