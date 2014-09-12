@@ -11,6 +11,7 @@ public class Shape {
 	private float y1;
 	private float x2;
 	private float y2;
+	private int shapeType;
 	
 	private Random rnd = new Random();
 	private Color shapeColor = new Color(rnd.nextFloat(),rnd.nextFloat(),rnd.nextFloat(),rnd.nextFloat());
@@ -69,6 +70,16 @@ public class Shape {
 
 	public void setShapeColor(Color shapeColor) {
 		this.shapeColor = shapeColor;
+	}
+
+
+	public int getShapeType() {
+		return shapeType;
+	}
+
+
+	public void setShapeType(int shapeType) {
+		this.shapeType = shapeType;
 	}
 
 	

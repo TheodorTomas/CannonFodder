@@ -15,7 +15,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.BufferUtils;
 
@@ -25,47 +24,45 @@ public class GameEngine implements ApplicationListener {
 		CannonLogic cannon;
 		PlayerController controller;
 		LineLogic lines;
-		ShapeRenderer sr;
+		ArrayList<Shape> shapeList;
 		
 		
 		FloatBuffer vertexBuffer;
 		@Override
 		public void render() {
 			controller.aimLogic();
-//			lines.lineLogic();
-			
+			lines.lineLogic(this.shapeList);
 			
 			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 				 	 
 			Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
 			Gdx.gl11.glLoadIdentity();
 			Gdx.glu.gluOrtho2D(Gdx.gl10, 0, 800, 0, 600);
-//			
-//			
+			 
+			Gdx.gl11.glColor4f(0.6f, 0.0f, 0.0f, 1.0f);
+			
 			Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, vertexBuffer);
-//			
+			
 			
 			//This draws the cannon
-			Gdx.gl11.glPushMatrix();
-			Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);		
-			//Sets the color for the cannon.
-			Gdx.gl11.glColor4f(
-					cannon.getCannonColor().getRed(),
-					cannon.getCannonColor().getGreen(),
-					cannon.getCannonColor().getBlue(),
-					cannon.getCannonColor().getAlpha()
-					);
-			Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
+			Gdx.gl11.glPushMatrix();		
+				//Sets the color for the cannon.
+				Gdx.gl11.glColor4f(cannon.getCannonColor().getRed(), cannon.getCannonColor().getGreen(),
+						cannon.getCannonColor().getBlue(),cannon.getCannonColor().getAlpha());
+				Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);
+				Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
 			Gdx.gl11.glPopMatrix();
-//			camera.update();
-//			 sr.setProjectionMatrix(camera.combined);
-			Gdx.gl11.glLineWidth(lines.getLineWidth());
-//			sr.begin(ShapeType.Line);
-//				sr.setColor(lines.getShapeColor().getRed(), lines.getShapeColor().getGreen(), lines.getShapeColor().getBlue(), lines.getShapeColor().getAlpha());
-//				sr.line(lines.getX1(), lines.getY1(), lines.getX1(), lines.getY1());
-//			sr.end();
 			
-					 
+			
+			//This draws each line created by the right mouse click
+			for(Shape s : shapeList){
+				org.lwjgl.opengl.GL11.glColor4f(s.getShapeColor().getRed(), s.getShapeColor().getGreen(),
+						s.getShapeColor().getBlue(), s.getShapeColor().getAlpha());
+				org.lwjgl.opengl.GL11.glBegin(s.getShapeType());					
+					org.lwjgl.opengl.GL11.glVertex2f(s.getX1(), s.getY1());
+					org.lwjgl.opengl.GL11.glVertex2f(s.getX2(), s.getY2());
+				org.lwjgl.opengl.GL11.glEnd();
+			}
 		}
 		//This function is called on startup.
 		@Override
@@ -73,7 +70,8 @@ public class GameEngine implements ApplicationListener {
 			cannon = new CannonLogic();
 			lines = new LineLogic();
 			controller = new PlayerController();
-			sr = new ShapeRenderer();
+			shapeList = new ArrayList<Shape>();
+			
 			Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 			Gdx.gl11.glClearColor(0.4f, 0.6f, 1.0f, 1.0f);
 			vertexBuffer = BufferUtils.newFloatBuffer(8);
