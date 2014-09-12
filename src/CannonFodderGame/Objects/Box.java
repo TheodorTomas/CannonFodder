@@ -14,6 +14,7 @@ public class Box extends Shape{
 	private Line lefLine;
 	
 	public Box(){
+		
 		System.out.println("hello");
 		this.botLine = new Line();
 		this.botLine.setX1(Gdx.input.getX());

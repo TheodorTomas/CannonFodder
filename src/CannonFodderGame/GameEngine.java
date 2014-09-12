@@ -56,14 +56,14 @@ public class GameEngine implements ApplicationListener {
 			Gdx.gl11.glPopMatrix();
 			
 			
-			//This draws each line created by the right mouse click
+			//This draws each line created by mouse clicks
 			for(Shape s : shapeList){
 				org.lwjgl.opengl.GL11.glColor4f(s.getShapeColor().getRed(), s.getShapeColor().getGreen(),
 						s.getShapeColor().getBlue(), s.getShapeColor().getAlpha());
 				org.lwjgl.opengl.GL11.glBegin(s.getShapeType());					
 					org.lwjgl.opengl.GL11.glVertex2f(s.getX1(), s.getY1());
 					org.lwjgl.opengl.GL11.glVertex2f(s.getX2(), s.getY2());
-				org.lwjgl.opengl.GL11.glEnd();
+					org.lwjgl.opengl.GL11.glEnd();
 			}
 		}
 		//This function is called on startup.
