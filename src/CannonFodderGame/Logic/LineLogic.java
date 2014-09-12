@@ -12,8 +12,6 @@ import CannonFodderGame.Objects.Shape;
 public class LineLogic extends Line{
 	
 	private Boolean firstClick;
-	
-	
 	public LineLogic(){
 		firstClick = true;
 		
@@ -37,7 +35,7 @@ public class LineLogic extends Line{
 		}
 		else if(!Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && !firstClick){
 			firstClick = true;
-			LineLogic newLine = new LineLogic();
+			Line newLine = new Line();
 			newLine.setX1(this.getX1());
 			newLine.setX2(this.getX2());
 			newLine.setY1(Gdx.graphics.getHeight() -  this.getY1());
