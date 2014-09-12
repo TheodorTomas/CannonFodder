@@ -24,6 +24,7 @@ public class GameEngine implements ApplicationListener {
 		CannonLogic cannon;
 		PlayerController controller;
 		LineLogic lines;
+		BoxLogic boxes;
 		ArrayList<Shape> shapeList;
 		
 		
@@ -32,6 +33,7 @@ public class GameEngine implements ApplicationListener {
 		public void render() {
 			controller.aimLogic();
 			lines.lineLogic(this.shapeList);
+			boxes.boxLogic(this.shapeList);
 			
 			Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 				 	 
@@ -69,7 +71,9 @@ public class GameEngine implements ApplicationListener {
 		public void create() {
 			cannon = new CannonLogic();
 			lines = new LineLogic();
+			boxes = new BoxLogic();
 			controller = new PlayerController();
+			
 			shapeList = new ArrayList<Shape>();
 			
 			Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);

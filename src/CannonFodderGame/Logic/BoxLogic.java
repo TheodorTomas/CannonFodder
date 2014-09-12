@@ -6,21 +6,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL11;
 
-import CannonFodderGame.Objects.Line;
+import CannonFodderGame.Objects.Box;
 import CannonFodderGame.Objects.Shape;
 
-public class LineLogic extends Line{
+
+public class BoxLogic extends Box{
+	private Boolean firstClick; 
 	
-	private Boolean firstClick;
-	
-	
-	public LineLogic(){
-		firstClick = true;
-		
+	public BoxLogic(){
+		this.firstClick = true;
+		this.setShapeType(GL11.GL_LINE_STRIP);
 	}
-	
-	public void lineLogic(ArrayList<Shape> shapeList){
-		if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && firstClick){
+	public void boxLogic(ArrayList<Shape> shapeList){
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && firstClick){
 			firstClick = false;
 			this.setX1(Gdx.input.getX());
 			this.setY1(Gdx.input.getY());
@@ -30,12 +28,12 @@ public class LineLogic extends Line{
 			
 			System.out.println("adding new line");
 		}
-		else if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && !firstClick){
+		else if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !firstClick){
 			this.setX2(Gdx.input.getX());
 			this.setY2(Gdx.input.getY());
 			System.out.println("drawing line");
 		}
-		else if(!Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && !firstClick){
+		else if(!Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !firstClick){
 			firstClick = true;
 			LineLogic newLine = new LineLogic();
 			newLine.setX1(this.getX1());
@@ -45,6 +43,13 @@ public class LineLogic extends Line{
 			shapeList.add(newLine);
 			System.out.println("new line created");
 		}
+	}
+	public Boolean getFirstClick() {
+		return firstClick;
+	}
+
+	public void setFirstClick(Boolean firstClick) {
+		this.firstClick = firstClick;
 	}
 	
 }
