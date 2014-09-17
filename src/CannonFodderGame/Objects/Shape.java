@@ -38,7 +38,7 @@ public class Shape {
 		return y1;
 	}
 	public void setY1(float y1) {
-		this.y1 = Gdx.graphics.getHeight() -  y1;
+		this.y1 = y1;
 	}
 	public float getX2() {
 		return x2;
@@ -50,7 +50,7 @@ public class Shape {
 		return y2;
 	}
 	public void setY2(float y2) {
-		this.y2 = Gdx.graphics.getHeight() - y2;
+		this.y2 = y2;
 	}
 	public Color getShapeColor() {
 		return shapeColor;

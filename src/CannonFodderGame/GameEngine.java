@@ -17,7 +17,8 @@ import com.badlogic.gdx.utils.BufferUtils;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 public class GameEngine implements ApplicationListener {
-		CannonLogic cannon;
+		Cannon cannon;
+		CannonLogic cannonLogic;
 		PlayerController controller;
 		LineLogic lines;
 		BoxLogic boxes;
@@ -39,14 +40,14 @@ public class GameEngine implements ApplicationListener {
 			Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, vertexBuffer);
 			
 			
-			//This draws the cannon
-			Gdx.gl11.glPushMatrix();		
-				//Sets the color for the cannon.
-				Gdx.gl11.glColor4f(cannon.getCannonColor().getRed(), cannon.getCannonColor().getGreen(),
-						cannon.getCannonColor().getBlue(),cannon.getCannonColor().getAlpha());
-				Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);
-				Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
-			Gdx.gl11.glPopMatrix();
+//			//This draws the cannon
+//			Gdx.gl11.glPushMatrix();		
+//				//Sets the color for the cannon.
+//				Gdx.gl11.glColor4f(cannon.getCannonColor().getRed(), cannon.getCannonColor().getGreen(),
+//						cannon.getCannonColor().getBlue(),cannon.getCannonColor().getAlpha());
+//				Gdx.gl11.glTranslatef(controller.getAim(), cannon.getY1(), 0);
+//				Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
+//			Gdx.gl11.glPopMatrix();
 			
 			
 			//This draws each line created by mouse clicks
@@ -59,6 +60,14 @@ public class GameEngine implements ApplicationListener {
 					org.lwjgl.opengl.GL11.glVertex2f(s.getX2(), s.getY2());
 					org.lwjgl.opengl.GL11.glEnd();
 			}
+			org.lwjgl.opengl.GL11.glBegin(org.lwjgl.opengl.GL11.GL_QUADS);
+			org.lwjgl.opengl.GL11.glColor4f(cannon.getShapeColor().getRed(), cannon.getShapeColor().getGreen(),
+					cannon.getShapeColor().getBlue(), cannon.getShapeColor().getAlpha());
+				org.lwjgl.opengl.GL11.glVertex2f(cannon.getBotLine().getX1(),cannon.getBotLine().getY1());
+				org.lwjgl.opengl.GL11.glVertex2f(cannon.getTopLine().getX2(),cannon.getTopLine().getY2());
+				org.lwjgl.opengl.GL11.glVertex2f(cannon.getTopLine().getX1(),cannon.getTopLine().getY1());
+				org.lwjgl.opengl.GL11.glVertex2f(cannon.getRigLine().getX1(),cannon.getRigLine().getY1());
+			org.lwjgl.opengl.GL11.glEnd();
 		}
 		//This function is called on startup.
 		@Override
